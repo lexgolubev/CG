@@ -11,12 +11,25 @@ TEMPLATE = lib
 
 DEFINES += KERNEL_LIBRARY
 
-SOURCES += kernel.cpp
+SOURCES += kernel.cpp \
+    point.cpp \
+    rectangle.cpp \
+    quadtreerangesearch.cpp \
+    quadtreenode.cpp \
+    quadtree.cpp
 
 HEADERS += kernel.h\
-        kernel_global.h
+        kernel_global.h \
+    irangesearch.h \
+    point.h \
+    rectangle.h \
+    quadtreerangesearch.h \
+    quadtreenode.h \
+    quadtree.h
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+CONFIG += c++11
