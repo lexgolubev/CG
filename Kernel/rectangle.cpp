@@ -1,7 +1,7 @@
 #include "rectangle.h"
 
 Rectangle::Rectangle(double top, double right, double bottom, double left)
-    : top(top), right(right), bottom(bottom), left(left)
+    : _top(top), _right(right), _bottom(bottom), _left(left)
 {
 //    this->top = top;
 //    this->right = right;
@@ -9,62 +9,86 @@ Rectangle::Rectangle(double top, double right, double bottom, double left)
 //    this->left = left;
 }
 
-double Rectangle::getTop()
+double Rectangle::top()
 {
-    return top;
+    return _top;
 }
 
-double Rectangle::getRight()
+double Rectangle::right()
 {
-    return right;
+    return _right;
 }
 
-double Rectangle::getBottom()
+double Rectangle::bottom()
 {
-    return bottom;
+    return _bottom;
 }
 
-double Rectangle::getLeft()
+double Rectangle::left()
 {
-    return left;
+    return _left;
+}
+
+void Rectangle::setTop(double value)
+{
+    this->_top = value;
+}
+
+void Rectangle::setRight(double value)
+{
+    this->_right = value;
+}
+
+void Rectangle::setBottom(double value)
+{
+    this->_bottom = value;
+}
+
+void Rectangle::setLeft(double value)
+{
+    this->_left = value;
 }
 
 Location Rectangle::locationOfPoint(Point* p)
 {
-    if (p->getX() > top || p->getX() < bottom ||
-            p->getY() > right || p->getY() < left) {
+    if (p->y() > _top || p->y() < _bottom ||
+            p->x() > _right || p->x() < _left) {
         return Location::OUTSIDE;
     }
-    if (p->getX() == top || p->getX() == bottom ||
-            p->getY() == right || p->getY() == left) {
+    if (p->y() == _top || p->y() == _bottom ||
+            p->x() == _right || p->x() == _left) {
         return Location::BORDER;
     }
     return Location::INSIDE;
 }
 
 Intersection Rectangle::intersection(Rectangle other) {
-    if (top < other.bottom || bottom > other.top ||
-            right < other.left || left > other.right) {
+    if (_top < other._bottom || _bottom > other._top ||
+            _right < other._left || _left > other._right) {
         return Intersection::NONE;
     }
-    if (top <= other.top && right <= other.right &&
-            bottom >= other.bottom && left >= other.left) {
+    if (_top <= other._top && _right <= other._right &&
+            _bottom >= other._bottom && _left >= other._left) {
         return Intersection::CONTAINS;
     }
     return Intersection::PART;
 }
 
 Rectangle Rectangle::intersect(Rectangle other) {
-    double intersectTop = (top >= other.top) ? other.top : top;
-    double intersectRight = (right >= other.right) ? other.right : right;
-    double intersectBottom = (bottom <= other.bottom) ? other.bottom : bottom;
-    double intersectLeft = (left <= other.left) ? other.left : left;
+    double intersectTop = (_top >= other._top) ? other._top : _top;
+    double intersectRight = (_right >= other._right) ? other._right : _right;
+    double intersectBottom = (_bottom <= other._bottom) ? other._bottom : _bottom;
+    double intersectLeft = (_left <= other._left) ? other._left : _left;
 
-    if (top >= bottom && right >= left) {
+    if (_top >= _bottom && _right >= _left) {
         return Rectangle(intersectTop, intersectRight, intersectBottom, intersectLeft);
     } else {
         return Rectangle(INVALID_Y, INVALID_X, INVALID_Y, INVALID_X);
     }
+}
+
+Rectangle Rectangle::operator +(const Point& p) {
+    return Rectangle(_top + p.y(), _right + p.x(), _bottom + p.y(), _left + p.x());
 }
 
 Rectangle::~Rectangle()

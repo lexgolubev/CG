@@ -2,15 +2,17 @@
 #define QUADTREERANGESEARCH_H
 
 #include "irangesearch.h"
+#include "quadtree.h"
 
-class QuadTreeRangeSearch : IRangeSearch
+class QuadTreeRangeSearch : public IRangeSearch
 {
 private:
-
+    QuadTree* tree;
 public:
     QuadTreeRangeSearch();
 
-    virtual void init(std::vector<Point> points);
+    virtual void init(const std::vector<Point*>& points);
+    virtual std::vector<Point*> search(Rectangle r);
 
     virtual ~QuadTreeRangeSearch();
 };

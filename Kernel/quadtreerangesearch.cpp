@@ -5,12 +5,16 @@ QuadTreeRangeSearch::QuadTreeRangeSearch() : IRangeSearch()
 
 }
 
-void QuadTreeRangeSearch::init(std::vector<Point> points) {
+void QuadTreeRangeSearch::init(const std::vector<Point*>& points) {
+    tree = new QuadTree(points);
+}
 
+std::vector<Point*> QuadTreeRangeSearch::search(Rectangle r) {
+    return tree->query(r);
 }
 
 QuadTreeRangeSearch::~QuadTreeRangeSearch()
 {
-
+    delete tree;
 }
 

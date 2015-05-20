@@ -5,14 +5,18 @@
 #include "point.h"
 #include "rectangle.h"
 
-constexpr int MAX_POINT_IN_RECTANGLE = 5;
-
 class QuadTreeNode
 {
 public:
-    QuadTreeNode(Rectangle r, const std::vector<Point*>& points);
+    static constexpr int DEFAULT_LOAD_FACTOR = 5;
+public:
+    QuadTreeNode(Rectangle r);
+
+    void init(const std::vector<Point*>& points);
 
     std::vector<Point*> query(Rectangle rectangle);
+
+    void setLoadFactor(int value = DEFAULT_LOAD_FACTOR);
 
     ~QuadTreeNode();
 
@@ -25,7 +29,8 @@ public:
 private:
     void split();
 
-private:
+public:
+    static int loadFactor;
     Rectangle r;
     std::vector<Point*> pts;
 };

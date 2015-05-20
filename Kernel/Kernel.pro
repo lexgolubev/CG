@@ -16,7 +16,11 @@ SOURCES += kernel.cpp \
     rectangle.cpp \
     quadtreerangesearch.cpp \
     quadtreenode.cpp \
-    quadtree.cpp
+    quadtree.cpp \
+    random.cpp \
+    linearrangesearch.cpp \
+    liangbarskyclipping.cpp \
+    grahamhull.cpp
 
 HEADERS += kernel.h\
         kernel_global.h \
@@ -25,7 +29,13 @@ HEADERS += kernel.h\
     rectangle.h \
     quadtreerangesearch.h \
     quadtreenode.h \
-    quadtree.h
+    quadtree.h \
+    random.h \
+    linearrangesearch.h \
+    iclipping.h \
+    liangbarskyclipping.h \
+    ihull.h \
+    grahamhull.h
 
 unix {
     target.path = /usr/lib

@@ -19,21 +19,29 @@ enum Intersection
 class Rectangle
 {
 private:
-    double top;
-    double right;
-    double bottom;
-    double left;
+    double _top;
+    double _right;
+    double _bottom;
+    double _left;
 public:
-    Rectangle(double top, double right, double bottom, double left);
+    Rectangle(double top = 0, double right = 0, double bottom = 0, double left = 0);
 
     Location locationOfPoint(Point* p);
     Intersection intersection(Rectangle other);
     Rectangle intersect(Rectangle other);
 
-    double getTop();
-    double getRight();
-    double getBottom();
-    double getLeft();
+    double top();
+    double right();
+    double bottom();
+    double left();
+
+    void setTop(double value);
+    void setRight(double value);
+    void setBottom(double value);
+    void setLeft(double value);
+
+    //move on dx dy
+    Rectangle operator+(const Point& p);
 
     ~Rectangle();
 };

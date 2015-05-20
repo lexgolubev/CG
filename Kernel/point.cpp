@@ -1,6 +1,6 @@
 #include "point.h"
 
-Point::Point(double x, double y) : x(x), y(y)
+Point::Point(double x, double y) : _x(x), _y(y)
 {
 //    this->x = x;
 //    this->y = y;
@@ -16,14 +16,14 @@ void Point::setY(double value)
     this->setY(value);
 }
 
-double Point::getX() const
+double Point::x() const
 {
-    return x;
+    return _x;
 }
 
-double Point::getY() const
+double Point::y() const
 {
-    return y;
+    return _y;
 }
 
 Point::~Point()

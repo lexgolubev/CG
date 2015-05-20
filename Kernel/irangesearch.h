@@ -8,8 +8,9 @@
 class IRangeSearch
 {
 public:
-    virtual void init(std::vector<Point> points) = 0;
-    virtual std::vector<Point> search(Rectangle r);
+    IRangeSearch() {}
+    virtual void init(const std::vector<Point*>& points) = 0;
+    virtual std::vector<Point*> search(Rectangle r) = 0;
     virtual ~IRangeSearch() {}
 };
 

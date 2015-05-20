@@ -1,28 +1,33 @@
 #include "quadtreenode.h"
 
-QuadTreeNode::QuadTreeNode(Rectangle r, const std::vector<Point*>& points)
-    : r(r), pts(points)
+int QuadTreeNode::loadFactor;
+
+QuadTreeNode::QuadTreeNode(Rectangle r)
+    : r(r)
 {
     this->son1 = nullptr;
     this->son2 = nullptr;
     this->son3 = nullptr;
     this->son4 = nullptr;
+}
 
-    if (points.size() > MAX_POINT_IN_RECTANGLE) {
+void QuadTreeNode::init(const std::vector<Point *> &points) {
+    pts = points;
+    if (points.size() > loadFactor) {
         split();
     }
 }
 
 void QuadTreeNode::split()
 {
-    double midX = (r.getLeft() + r.getRight()) / 2;
-    double midY = (r.getTop() + r.getBottom()) / 2;
+    double midX = (r.left() + r.right()) / 2;
+    double midY = (r.top() + r.bottom()) / 2;
 
     //order: top -> right -> bottom -> left
-    Rectangle r1(r.getTop(), midX, midY, r.getLeft());
-    Rectangle r2(r.getTop(), r.getRight(), midY, midX);
-    Rectangle r3(midY, r.getRight(), r.getBottom(), midX);
-    Rectangle r4(midY, midX, r.getBottom(), r.getLeft());
+    Rectangle r1(r.top(), midX, midY, r.left());
+    Rectangle r2(r.top(), r.right(), midY, midX);
+    Rectangle r3(midY, r.right(), r.bottom(), midX);
+    Rectangle r4(midY, midX, r.bottom(), r.left());
 
     std::vector<Point*> pts1;
     std::vector<Point*> pts2;
@@ -41,10 +46,14 @@ void QuadTreeNode::split()
         }
     }
 
-    son1 = new QuadTreeNode(r1, pts1);
-    son2 = new QuadTreeNode(r2, pts2);
-    son3 = new QuadTreeNode(r3, pts3);
-    son4 = new QuadTreeNode(r4, pts4);
+    son1 = new QuadTreeNode(r1);
+    son1->init(pts1);
+    son2 = new QuadTreeNode(r2);
+    son2->init(pts2);
+    son3 = new QuadTreeNode(r3);
+    son3->init(pts3);
+    son4 = new QuadTreeNode(r4);
+    son4->init(pts4);
 }
 
 std::vector<Point*> QuadTreeNode::query(Rectangle rectangle)
@@ -79,6 +88,10 @@ std::vector<Point*> QuadTreeNode::query(Rectangle rectangle)
         result.insert(result.end(), pts4.begin(), pts4.end());
     }
     return result;
+}
+
+void QuadTreeNode::setLoadFactor(int value) {
+    loadFactor = value;
 }
 
 QuadTreeNode::~QuadTreeNode()

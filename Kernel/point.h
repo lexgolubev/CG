@@ -1,12 +1,16 @@
 #ifndef POINT_H
 #define POINT_H
 
+constexpr double MIN_X = 0.0;
+constexpr double MIN_Y = 0.0;
+constexpr double MAX_X = 1300;
+constexpr double MAX_Y = 620;
 
 class Point
 {
 private:
-    double x;
-    double y;
+    double _x;
+    double _y;
 
 public:
     Point(double x = 0.0, double y = 0.0);
@@ -14,8 +18,8 @@ public:
     void setX(double value);
     void setY(double value);
 
-    double getX() const;
-    double getY() const;
+    double x() const;
+    double y() const;
 
     ~Point();
 };
