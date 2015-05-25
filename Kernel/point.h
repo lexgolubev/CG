@@ -3,7 +3,7 @@
 
 constexpr double MIN_X = 0.0;
 constexpr double MIN_Y = 0.0;
-constexpr double MAX_X = 1300;
+constexpr double MAX_X = 1100;
 constexpr double MAX_Y = 620;
 
 class Point

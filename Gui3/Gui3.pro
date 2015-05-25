@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-04-04T18:15:22
+# Project created by QtCreator 2015-05-22T22:24:14
 #
 #-------------------------------------------------
 
@@ -8,16 +8,14 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Gui
+TARGET = Gui3
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    mouseeventfilter.cpp
+        mainwindow.cpp
 
-HEADERS  += mainwindow.h \
-    mouseeventfilter.h
+HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
 

@@ -19,6 +19,9 @@ public:
     }
 
     qreal tan(const QPointF& p1, const QPointF& p2) const {
+        if (p1 == p2) {
+            return 1000000;
+        }
         return (p2.y() - p1.y()) / (p2.x() - p1.x());
     }
 
@@ -52,6 +55,7 @@ QList<QPointF> GrahamHull::build(const QList<QPointF> &points) {
             w = pts.takeFirst();
         }
     }
+    hull.push_back(v);
     return hull;
 }
 
