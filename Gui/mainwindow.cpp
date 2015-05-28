@@ -100,7 +100,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *e) {
                           std::min(beginSelect.y(), endSelect.y()),
                           std::min(beginSelect.x(), endSelect.x()));
         repaintField = QRect(field.left(), field.bottom(), field.right() - field.left() + 1, field.top() - field.bottom() + 1);
-        paintAllPoints = true;
+//        paintAllPoints = true;
 //        repaint(repaintField);
 //        paintAllPoints = false;
     } else {
@@ -166,7 +166,9 @@ void MainWindow::on_toolButton_clicked()
     rectangleSelected = false;
     field = Rectangle();
 //    repaint(repaintField);
+    paintAllPoints = true;
     repaint();
+    paintAllPoints = false;
 }
 
 void MainWindow::on_lineEditPoints_returnPressed()
@@ -177,9 +179,10 @@ void MainWindow::on_lineEditPoints_returnPressed()
     algorithm->init(points);
     found.clear();
 //    selected = false;
+    on_toolButton_clicked();
     paintAllPoints = true;
     repaint();
-//    paintAllPoints = false;
+    paintAllPoints = false;
 }
 
 MainWindow::~MainWindow()
