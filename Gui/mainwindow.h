@@ -29,12 +29,15 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+
+    void drawPoints(const QVector<QPointF>& points, QColor c);
+    void drawRectangle(QRectF r, QColor c);
+
     void paintEvent(QPaintEvent *);
-    void drawPoints(const std::vector<Point*>& points, QColor c);
-    void drawRectangle(Rectangle r, QColor c);
     void mousePressEvent(QMouseEvent* e);
     void mouseReleaseEvent(QMouseEvent* e);
     void mouseMoveEvent(QMouseEvent* e);
+
     ~MainWindow();
 
 private:
@@ -45,29 +48,23 @@ private:
 
     int pointsAmount;
 
-    std::vector<Point*> points;
-    std::vector<Point*> found;
-    std::vector<Point*> prevFound;
+    QVector<QPointF> points;
+    QVector<QPointF> found;
 
     IRangeSearch* algorithm;
-    Rectangle field;
-
-    QRect repaintField;
-
-    QPoint previousClick;
+    QRectF field;
 
     QPoint beginSelect;
     QPoint endSelect;
 
     QPoint beginMove;
     QPoint endMove;
-    QPoint pos;
+
     QColor color;
-    bool paintRect;
     QPoint disp;
 
+    bool paintRect;
     bool rectangleSelected;
-
     bool paintAllPoints;
 
 private slots:

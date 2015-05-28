@@ -1,16 +1,16 @@
 #ifndef I_RANGE_SEARCH
 #define I_RANGE_SEARCH
 
-#include <vector>
-#include <point.h>
-#include <rectangle.h>
+#include <QPointF>
+#include <QRectF>
+#include <QVector>
 
 class IRangeSearch
 {
 public:
     IRangeSearch() {}
-    virtual void init(const std::vector<Point*>& points) = 0;
-    virtual std::vector<Point*> search(Rectangle r) = 0;
+    virtual void init(const QVector<QPointF>& points) = 0;
+    virtual void search(QRectF r, QVector<QPointF>& result) = 0;
     virtual ~IRangeSearch() {}
 };
 

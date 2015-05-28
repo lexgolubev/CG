@@ -27,6 +27,14 @@ QList<QPointF> Random::qpoints(int length) {
     return points;
 }
 
+QVector<QPointF> Random::qpoints_vector(int length) {
+    QVector<QPointF> points;
+    for (int i = 0; i < length; i++) {
+        points.push_back(qpoint());
+    }
+    return points;
+}
+
 QPointF Random::qpoint()
 {
     return QPointF(number(MIN_X, MAX_X), number(MIN_Y, MAX_Y));

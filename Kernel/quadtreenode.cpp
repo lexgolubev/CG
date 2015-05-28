@@ -2,7 +2,7 @@
 
 int QuadTreeNode::loadFactor;
 
-QuadTreeNode::QuadTreeNode(Rectangle r)
+QuadTreeNode::QuadTreeNode(QRectF r)
     : r(r)
 {
     this->son1 = nullptr;
@@ -11,7 +11,7 @@ QuadTreeNode::QuadTreeNode(Rectangle r)
     this->son4 = nullptr;
 }
 
-void QuadTreeNode::init(const std::vector<Point *> &points) {
+void QuadTreeNode::init(const QVector<QPointF>& points) {
     pts = points;
     if (points.size() > loadFactor) {
         split();
@@ -23,26 +23,25 @@ void QuadTreeNode::split()
     double midX = (r.left() + r.right()) / 2;
     double midY = (r.top() + r.bottom()) / 2;
 
-    //order: top -> right -> bottom -> left
-    Rectangle r1(r.top(), midX, midY, r.left());
-    Rectangle r2(r.top(), r.right(), midY, midX);
-    Rectangle r3(midY, r.right(), r.bottom(), midX);
-    Rectangle r4(midY, midX, r.bottom(), r.left());
+    QRectF r1(QPointF(r.left(), r.top()), QPointF(midX, midY));
+    QRectF r2(QPointF(midX, r.top()), QPointF(r.right(), midY));
+    QRectF r3(QPointF(r.left(), midY), QPointF(midX, r.bottom()));
+    QRectF r4(QPointF(midX, midY), QPointF(r.right(), r.bottom()));
 
-    std::vector<Point*> pts1;
-    std::vector<Point*> pts2;
-    std::vector<Point*> pts3;
-    std::vector<Point*> pts4;
+    QVector<QPointF> pts1;
+    QVector<QPointF> pts2;
+    QVector<QPointF> pts3;
+    QVector<QPointF> pts4;
 
-    for (auto it = pts.begin(); it != pts.end(); ++it) {
-        if (r1.locationOfPoint(*it) != Location::OUTSIDE) {
-            pts1.push_back(*it);
-        } else if (r2.locationOfPoint(*it) != Location::OUTSIDE) {
-            pts2.push_back(*it);
-        } else if (r3.locationOfPoint(*it) != Location::OUTSIDE) {
-            pts3.push_back(*it);
-        } else if (r4.locationOfPoint(*it) != Location::OUTSIDE) {
-            pts4.push_back(*it);
+    foreach (QPointF p, pts) {
+        if (r1.contains(p)) {
+            pts1.push_back(p);
+        } else if (r2.contains(p)) {
+            pts2.push_back(p);
+        } else if (r3.contains(p)) {
+            pts3.push_back(p);
+        } else if (r4.contains(p)) {
+            pts4.push_back(p);
         }
     }
 
@@ -56,38 +55,40 @@ void QuadTreeNode::split()
     son4->init(pts4);
 }
 
-std::vector<Point*> QuadTreeNode::query(Rectangle rectangle)
+void QuadTreeNode::query(QRectF rectangle, QVector<QPointF>& result)
 {
-    std::vector<Point*> result;
-    Intersection intersection = r.intersection(rectangle);
-    if (intersection == Intersection::NONE) {
-        return result;
+    result.clear();
+    if (!r.intersects(rectangle)) {
+        return;
     }
     if (son1 == nullptr || son2 == nullptr || son3 == nullptr || son4 == nullptr) {
-        if (intersection == Intersection::CONTAINS) {
-            result.insert(result.end(), pts.begin(), pts.end());
-        } else if (intersection == Intersection::PART) {
-            for (auto it = pts.begin(); it != pts.end(); ++it) {
-                if (rectangle.locationOfPoint(*it) != Location::OUTSIDE) {
-                    result.push_back(*it);
+        if (rectangle.contains(r)) {
+            result += pts;
+        } else {
+            foreach (QPointF p, pts) {
+                if (rectangle.contains(p)) {
+                    result.push_back(p);
                 }
             }
         }
     } else {
-        Rectangle r1 = son1->r.intersect(rectangle);
-        Rectangle r2 = son2->r.intersect(rectangle);
-        Rectangle r3 = son3->r.intersect(rectangle);
-        Rectangle r4 = son4->r.intersect(rectangle);
-        auto pts1 = son1->query(r1);
-        auto pts2 = son2->query(r2);
-        auto pts3 = son3->query(r3);
-        auto pts4 = son4->query(r4);
-        result.insert(result.end(), pts1.begin(), pts1.end());
-        result.insert(result.end(), pts2.begin(), pts2.end());
-        result.insert(result.end(), pts3.begin(), pts3.end());
-        result.insert(result.end(), pts4.begin(), pts4.end());
+        QRectF r1 = son1->r.intersected(rectangle);
+        QRectF r2 = son2->r.intersected(rectangle);
+        QRectF r3 = son3->r.intersected(rectangle);
+        QRectF r4 = son4->r.intersected(rectangle);
+        QVector<QPointF> pts1;
+        QVector<QPointF> pts2;
+        QVector<QPointF> pts3;
+        QVector<QPointF> pts4;
+        son1->query(r1, pts1);
+        son2->query(r2, pts2);
+        son3->query(r3, pts3);
+        son4->query(r4, pts4);
+        result += pts1;
+        result += pts2;
+        result += pts3;
+        result += pts4;
     }
-    return result;
 }
 
 void QuadTreeNode::setLoadFactor(int value) {

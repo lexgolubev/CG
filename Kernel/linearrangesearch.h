@@ -8,13 +8,13 @@ class LinearRangeSearch : public IRangeSearch
 public:
     LinearRangeSearch();
 
-    virtual void init(const std::vector<Point *> &points);
-    virtual std::vector<Point*> search(Rectangle r);
+    virtual void init(const QVector<QPointF>& points);
+    virtual void search(QRectF r, QVector<QPointF>& result);
 
     ~LinearRangeSearch();
 
 private:
-    std::vector<Point*> points;
+    QVector<QPointF> points;
 };
 
 #endif // LINEARRANGESEARCH_H

@@ -5,16 +5,20 @@
 #include "point.h"
 #include "rectangle.h"
 
+#include <QVector>
+#include <QPointF>
+#include <QRectF>
+
 class QuadTreeNode
 {
 public:
     static constexpr int DEFAULT_LOAD_FACTOR = 5;
 public:
-    QuadTreeNode(Rectangle r);
+    QuadTreeNode(QRectF r);
 
-    void init(const std::vector<Point*>& points);
+    void init(const QVector<QPointF>& points);
 
-    std::vector<Point*> query(Rectangle rectangle);
+    void query(QRectF rectangle, QVector<QPointF>& result);
 
     void setLoadFactor(int value = DEFAULT_LOAD_FACTOR);
 
@@ -31,8 +35,8 @@ private:
 
 public:
     static int loadFactor;
-    Rectangle r;
-    std::vector<Point*> pts;
+    QRectF r;
+    QVector<QPointF> pts;
 };
 
 #endif // QUADTREENODE_H

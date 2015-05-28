@@ -5,20 +5,19 @@ LinearRangeSearch::LinearRangeSearch()
 
 }
 
-void LinearRangeSearch::init(const std::vector<Point *> &points)
+void LinearRangeSearch::init(const QVector<QPointF>& points)
 {
-    this->points.insert(this->points.end(), points.begin(), points.end());
+    this->points = points;
 }
 
-std::vector<Point*> LinearRangeSearch::search(Rectangle r)
+void LinearRangeSearch::search(QRectF r, QVector<QPointF>& result)
 {
-    std::vector<Point*> found;
-    for (auto it = points.begin(); it != points.end(); ++it) {
-        if (r.locationOfPoint(*it) != Location::OUTSIDE) {
-            found.push_back(*it);
+    result.clear();
+    foreach (QPointF p, points) {
+        if (r.contains(p)) {
+            result.push_back(p);
         }
     }
-    return found;
 }
 
 LinearRangeSearch::~LinearRangeSearch()

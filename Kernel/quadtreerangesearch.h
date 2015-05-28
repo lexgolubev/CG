@@ -11,8 +11,8 @@ private:
 public:
     QuadTreeRangeSearch();
 
-    virtual void init(const std::vector<Point*>& points);
-    virtual std::vector<Point*> search(Rectangle r);
+    virtual void init(const QVector<QPointF>& points);
+    virtual void search(QRectF r, QVector<QPointF>& result);
 
     virtual ~QuadTreeRangeSearch();
 };

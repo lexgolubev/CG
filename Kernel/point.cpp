@@ -6,6 +6,11 @@ Point::Point(double x, double y) : _x(x), _y(y)
 //    this->y = y;
 }
 
+Point::Point(const Point &p) {
+    this->_x = p._x;
+    this->_y = p._y;
+}
+
 void Point::setX(double value)
 {
     this->setX(value);

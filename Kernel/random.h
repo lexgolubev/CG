@@ -4,6 +4,7 @@
 #include <QPointF>
 #include <QList>
 #include <QLineF>
+#include <QVector>
 #include "point.h"
 #include <time.h>
 
@@ -17,6 +18,7 @@ public:
     std::vector<Point*> points(int length);
 
     QList<QPointF> qpoints(int length);
+    QVector<QPointF> qpoints_vector(int length);
 
     QList<QLineF> qlines(int length);
 

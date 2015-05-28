@@ -14,6 +14,7 @@ private:
 
 public:
     Point(double x = 0.0, double y = 0.0);
+    Point(const Point& p);
 
     void setX(double value);
     void setY(double value);

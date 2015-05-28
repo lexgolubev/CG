@@ -1,16 +1,16 @@
 #include "quadtree.h"
 
-QuadTree::QuadTree(const std::vector<Point*>& points)
+QuadTree::QuadTree(const QVector<QPointF>& points)
 {
-    Rectangle r(MAX_Y, MAX_X, MIN_Y, MIN_X);
+    QRectF r(QPointF(MIN_X, MIN_Y), QPointF(MAX_X, MAX_Y));
     root = new QuadTreeNode(r);
     root->setLoadFactor(100);
     root->init(points);
 }
 
-std::vector<Point*> QuadTree::query(Rectangle rectangle)
+void QuadTree::query(QRectF rectangle, QVector<QPointF>& result)
 {
-    return root->query(rectangle);
+    return root->query(rectangle, result);
 }
 
 QuadTree::~QuadTree()

@@ -1,14 +1,15 @@
 #ifndef QUADTREE_H
 #define QUADTREE_H
 
+#include <QDebug>
 #include "quadtreenode.h"
 
 class QuadTree
 {
 public:
-    QuadTree(const std::vector<Point*>& points);
+    QuadTree(const QVector<QPointF>& points);
 
-    std::vector<Point*> query(Rectangle rectangle);
+    void query(QRectF rectangle, QVector<QPointF>& result);
 
     ~QuadTree();
 private:
