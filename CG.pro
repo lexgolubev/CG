@@ -4,4 +4,5 @@ SUBDIRS += \
     Kernel \
     Gui \
     Gui2 \
-    Gui3
+    Gui3 \
+    Gui4

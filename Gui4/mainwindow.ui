@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1275</width>
+    <width>1259</width>
     <height>696</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Clipping</string>
+   <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -33,43 +33,30 @@
       <property name="title">
        <string/>
       </property>
-      <widget class="QLineEdit" name="lineEdit">
+      <widget class="QPushButton" name="pushButtonBuild">
        <property name="geometry">
         <rect>
          <x>20</x>
          <y>20</y>
-         <width>113</width>
-         <height>29</height>
+         <width>100</width>
+         <height>27</height>
         </rect>
        </property>
        <property name="text">
-        <string>100</string>
+        <string>build</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButtonClip">
+      <widget class="QPushButton" name="pushButtonClear">
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>70</y>
-         <width>111</width>
-         <height>31</height>
+         <y>60</y>
+         <width>100</width>
+         <height>27</height>
         </rect>
        </property>
        <property name="text">
-        <string>clip</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButtonSelect">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>120</y>
-         <width>111</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>select</string>
+        <string>clear</string>
        </property>
       </widget>
      </widget>
@@ -81,7 +68,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1275</width>
+     <width>1259</width>
      <height>23</height>
     </rect>
    </property>

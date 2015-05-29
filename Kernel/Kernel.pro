@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       -= gui
+QT -= gui
+QT += opengl
 
 TARGET = Kernel
 TEMPLATE = lib
@@ -20,7 +21,9 @@ SOURCES += kernel.cpp \
     random.cpp \
     linearrangesearch.cpp \
     liangbarskyclipping.cpp \
-    grahamhull.cpp
+    grahamhull.cpp \
+    zbuffer.cpp \
+    beziercurve.cpp
 
 HEADERS += kernel.h\
         kernel_global.h \
@@ -35,7 +38,9 @@ HEADERS += kernel.h\
     iclipping.h \
     liangbarskyclipping.h \
     ihull.h \
-    grahamhull.h
+    grahamhull.h \
+    zbuffer.h \
+    beziercurve.h
 
 unix {
     target.path = /usr/lib
